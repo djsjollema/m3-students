@@ -25,7 +25,7 @@ public class Les1 : MonoBehaviour
         P.transform.position += v*speed * Time.deltaTime;
 
         float distance = (B.transform .position - P.transform.position).magnitude;
-        if(distance < (v * Time.deltaTime).magnitude)
+        if(distance < (v * speed * Time.deltaTime).magnitude)
         {
             P.transform.position = A.transform.position;
             t = 0;
