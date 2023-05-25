@@ -9,6 +9,8 @@ public class PongGame : MonoBehaviour
     public Vector2 viewMax;
     public Vector2 viewMin; 
 
+    RaycastHit2D hit;
+
     void Start()
     {
         Debug.Log(Screen.width);
@@ -26,7 +28,12 @@ public class PongGame : MonoBehaviour
     void Update()
     {
         pongBall.transform.position += velocity * Time.deltaTime;
-
+        hit = Physics2D.Raycast(pongBall.transform.position, new Vector3(velocity.x, 0, 0),0.5f);
+        Debug.DrawRay(pongBall.transform.position, new Vector3(velocity.x, 0, 0),Color.white);
+        if(hit.collider != null)
+        {
+            velocity = new Vector3(-velocity.x, velocity.y, 0);
+        }
         if(pongBall.transform.position.y > viewMax.y - pongBall.transform.localScale.x/2)
         {
             velocity = new Vector3(velocity.x, -velocity.y, 0);
