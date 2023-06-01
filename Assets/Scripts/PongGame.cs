@@ -7,7 +7,10 @@ public class PongGame : MonoBehaviour
     public GameObject pongBall;
     public Vector3 velocity = new Vector3(-1,2,0);
     public Vector2 viewMax;
-    public Vector2 viewMin; 
+    public Vector2 viewMin;
+    public GameObject playerB;
+    public GameObject playerA;
+    public float speed = 5.0f;
 
     RaycastHit2D hit;
 
@@ -27,7 +30,26 @@ public class PongGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pongBall.transform.position += velocity * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            playerB.transform.position += new Vector3(0, 1, 0);
+        }
+
+        if(Input.GetKeyDown(KeyCode.DownArrow)) {
+            playerB.transform.position += new Vector3(0, -1, 0);
+         }
+
+        if (Input.GetKeyDown(KeyCode.W)){
+            playerA.transform.position += new Vector3(0, 1, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            playerA.transform.position += new Vector3(0, -1, 0);
+        }
+
+        pongBall.transform.position += velocity * speed * Time.deltaTime;
+
         hit = Physics2D.Raycast(pongBall.transform.position, new Vector3(velocity.x, 0, 0),0.5f);
         Debug.DrawRay(pongBall.transform.position, new Vector3(velocity.x, 0, 0),Color.white);
         if(hit.collider != null)
