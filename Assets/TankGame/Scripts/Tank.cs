@@ -19,7 +19,27 @@ public class Tank : MonoBehaviour
     {
         BorderControl();
         transform.position += velocity * speed * Time.deltaTime;
-        
+
+        if (Input.GetKeyDown(KeyCode.RightArrow)){
+            transform.localEulerAngles += new Vector3(0, 0, -10);
+            velocity = Quaternion.Euler(0, 0, -10) * velocity;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.localEulerAngles += new Vector3(0, 0, 10);
+            velocity = Quaternion.Euler(0, 0, 10) * velocity;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            speed++;
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            speed--;
+        }
+
     }
 
     public void BorderControl()
@@ -32,6 +52,16 @@ public class Tank : MonoBehaviour
         if(transform.position.y < minView.y)
         {
             transform.position = new Vector3(transform.position.x,maxView.y, 0);
+        }
+
+        if(transform.position.x > maxView.x)
+        {
+            transform.position = new Vector3(minView.x, transform.position.y, 0);
+        }
+
+        if(transform.position.x < minView.x )
+        {
+            transform.position = new Vector3(maxView.x, transform.position.y, 0);
         }
 
     }
