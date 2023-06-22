@@ -8,6 +8,9 @@ public class Tank : MonoBehaviour
     public float speed = 1.0f;
     Vector2 minView;
     Vector2 maxView;
+    public KeyCode forward, left, right, backward;
+    public Bullet bullet;
+    public AudioSource shot;
 
     void Start()
     {
@@ -38,6 +41,14 @@ public class Tank : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             speed--;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Bullet newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            newBullet.velocity = velocity;
+            newBullet.speed = 10.0f;
+            shot.Play();
         }
 
     }
